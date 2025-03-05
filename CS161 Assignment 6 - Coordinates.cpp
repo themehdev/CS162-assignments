@@ -1,7 +1,7 @@
-#include <iostream>;
-#include <cmath>;
-#include <limits.h>;
-#include <sstream>;
+#include <iostream>
+#include <cmath>
+#include <limits.h>
+#include <sstream>
 using namespace std;
 
 class Point {
@@ -25,16 +25,16 @@ class Point {
     string toString() { return "(" + to_string(x) + ", " + to_string(y) + ")"; }
 
     double getDistance(Point other) {
-        int dx = x - other.x;
-        int dy = y - other.y;
+        double dx = x - other.getX();
+        double dy = y - other.getY();
         return sqrt(dx * dx + dy * dy);
     }
 
     double getSlope(Point other) {
-        int dx = x - other.x;
-        int dy = y - other.y;
+        double dx = x - other.getX();
+        double dy = y - other.getY();
         if (dx == 0) 
-            return INT_MAX; // slope undefined for vertical lines
+            return INT_MAX; // slope is undefined for vertical lines
         return dy/dx;
     }
 
@@ -49,11 +49,11 @@ class Point {
 
 };
 
-void main() {
-    int x1, y1, x2, y2;
+int main() {
+    int x1, y1, x2, y2 = 0;
     Point p1(x1, y1);
     Point p2(x2, y2);
-    bool continuing = false;
+    bool continuing = true;
     while (continuing) {
         cout << "Enter the X and Y values for point 1 (separated by a space): ";
         cin >> x1 >> y1;
@@ -62,22 +62,22 @@ void main() {
         cin >> x2 >> y2;
         p2.setPos(x2, y2);
 
-        cout << "Point 1: " << p1.toString() << (p1.getQuadrant() == 0) ? " is not in a quadrant" : (" is in quadrant" + to_string(p1.getQuadrant()));
-        cout << "Point 2: " << p2.toString() << (p2.getQuadrant() == 0) ? " is not in a quadrant" : (" is in quadrant" + to_string(p2.getQuadrant()));
+        cout << "Point 1: " << p1.toString() << ((p1.getQuadrant() == 0) ? " is not in a quadrant" : (" is in quadrant " + to_string(p1.getQuadrant()))) << endl;
+        cout << "Point 2: " << p2.toString() << ((p2.getQuadrant() == 0) ? " is not in a quadrant" : (" is in quadrant " + to_string(p2.getQuadrant()))) << endl;
 
-        cout << "The distance between the points is " << p1.getDistance(p2);
+        cout << "The distance between the points is " << p1.getDistance(p2) << endl;
 
-        cout << "The slope of the line passing through them is " << p1.getSlope(p2);
+        cout << "The slope of the line passing through them is " << p1.getSlope(p2) << endl;
 
         cout << "Would you like to continue? (Y/N)? ";
         string input;
         cin >> input;
-        while (input != "Y" || input != "N"){
+        while (input != "Y" && input != "N"){
             cout << "Please respond with Y or N: ";
             cin >> input;
         }
 
         continuing = (input == "Y");
     }
-
+    return 0;
 }
