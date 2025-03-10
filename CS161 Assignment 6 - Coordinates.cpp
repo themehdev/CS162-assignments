@@ -60,30 +60,36 @@ void setPoint(int pointNum, Point &p){
     Point::setPos(p, x, y);
 }
 
+bool toContinue () {
+    cout << "Would you like to continue? (Y/N)? ";
+    string input;
+    cin >> input;
+    while (input != "Y" && input != "N"){
+        cout << "Please respond with Y or N: ";
+        cin >> input;
+    }
+
+    return (input == "Y");
+}
+
+void runCoords (Point &p1, Point &p2){
+    setPoint(1, p1);
+    setPoint(2, p2);
+
+    cout << "Point 1: " << p1.toString() << ((p1.getQuadrant() == 0) ? " is not in a quadrant" : (" is in quadrant " + to_string(p1.getQuadrant()))) << endl;
+    cout << "Point 2: " << p2.toString() << ((p2.getQuadrant() == 0) ? " is not in a quadrant" : (" is in quadrant " + to_string(p2.getQuadrant()))) << endl;
+
+    cout << "The distance between the points is " << p1.getDistance(p2) << endl;
+
+    cout << "The slope of the line passing through them is " << p1.getSlope(p2) << endl;
+}
+
 int main() {
     Point p1;
     Point p2;
-    bool continuing = true;
-    while (continuing) {
-        setPoint(1, p1);
-        setPoint(2, p2);
-
-        cout << "Point 1: " << p1.toString() << ((p1.getQuadrant() == 0) ? " is not in a quadrant" : (" is in quadrant " + to_string(p1.getQuadrant()))) << endl;
-        cout << "Point 2: " << p2.toString() << ((p2.getQuadrant() == 0) ? " is not in a quadrant" : (" is in quadrant " + to_string(p2.getQuadrant()))) << endl;
-
-        cout << "The distance between the points is " << p1.getDistance(p2) << endl;
-
-        cout << "The slope of the line passing through them is " << p1.getSlope(p2) << endl;
-
-        cout << "Would you like to continue? (Y/N)? ";
-        string input;
-        cin >> input;
-        while (input != "Y" && input != "N"){
-            cout << "Please respond with Y or N: ";
-            cin >> input;
-        }
-
-        continuing = (input == "Y");
+    runCoords(p1, p2);
+    while (toContinue()) {
+        runCoords(p1, p2);
     }
     return 0;
 }
