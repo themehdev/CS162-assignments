@@ -46,21 +46,27 @@ class Point {
         return 4;
     }
 
+    static void setPos(Point &point, double x, double y){
+        point.setPos(x, y);
+    }
+
 
 };
 
+void setPoint(int pointNum, Point &p){
+    double x, y = 0;
+    cout << "Enter the X and Y values for point " << pointNum << " (separated by a space): ";
+    cin >> x >> y;
+    Point::setPos(p, x, y);
+}
+
 int main() {
-    int x1, y1, x2, y2 = 0;
-    Point p1(x1, y1);
-    Point p2(x2, y2);
+    Point p1;
+    Point p2;
     bool continuing = true;
     while (continuing) {
-        cout << "Enter the X and Y values for point 1 (separated by a space): ";
-        cin >> x1 >> y1;
-        p1.setPos(x1, y1);
-        cout << "Enter the X and Y values for point 2 (separated by a space): ";
-        cin >> x2 >> y2;
-        p2.setPos(x2, y2);
+        setPoint(1, p1);
+        setPoint(2, p2);
 
         cout << "Point 1: " << p1.toString() << ((p1.getQuadrant() == 0) ? " is not in a quadrant" : (" is in quadrant " + to_string(p1.getQuadrant()))) << endl;
         cout << "Point 2: " << p2.toString() << ((p2.getQuadrant() == 0) ? " is not in a quadrant" : (" is in quadrant " + to_string(p2.getQuadrant()))) << endl;
