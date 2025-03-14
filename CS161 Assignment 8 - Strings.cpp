@@ -25,31 +25,17 @@ void removeVowels(char *name, char *ret){
     }
 }
 
-string removeVowels(string guessed){
-    string substrArr[255];
+void removeVowels(string guessed, string &ret){
     const string vowels = "aAeEiIoOuU";
-    int first = 0;
-    int last = -1;
-    while(last != first){
-        last = first;
-        for(int i = 0; i < size(vowels); i ++){
-            int found = guessed.find(vowels.at(i), last);
-            if(first == -1 || (found != -1 && found < first)){
-                cout << found;
-                first = found;
+    for(int i = 0; i < guessed.size(); i ++){
+        for(int j = 0; j < vowels.size(); j ++){
+            if(guessed[i] == vowels[j]){
+                guessed.erase(i, 1);
+                break;
             }
         }
-        if(first == -1){ 
-            substrArr[0] = guessed;
-            break;
-        }
-        substrArr[sizeof(substrArr) / sizeof(vowels)] = guessed.substr(last, first - last);
     }
-    string ret = "";
-    for(int i = 0; i < sizeof(substrArr) / sizeof(vowels); i ++){
-        ret += substrArr[i];
-    }
-    return ret;
+    ret = guessed;
 }
 
 void cStringDemo(){
@@ -108,13 +94,14 @@ void stringTypeDemo(){
 
     cout << "You guessed " << guessed << endl;
 
-    string WOVowels = removeVowels(guessed);
+    string WOVowels = ""; 
+    removeVowels(guessed, WOVowels);
 
     cout << "Without vowels, thats " << WOVowels << endl;
 
     cout << "\n";
 
-    guessed += " the Barbarian";
+    guessed.append(" the Barbarian");
 
     cout << "And in less civilized times, it would be " << guessed;
 
