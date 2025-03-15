@@ -19,15 +19,16 @@ void removeVowels(char *name, char *ret){
                 break;
             default: 
                 ret[strlen(ret)] = lett;
-                cout << ret[strlen(ret)];
+                //cout << ret[strlen(ret)];
                 break;
         }
     }
+    ret[strlen(ret)] = '\0';
 }
 
 void removeVowels(string guessed, string &ret){
     const string vowels = "aAeEiIoOuU";
-    for(int i = 0; i < guessed.size(); i ++){
+    for(int i = guessed.size() - 1; i >= 0; i --){
         for(int j = 0; j < vowels.size(); j ++){
             if(guessed[i] == vowels[j]){
                 guessed.erase(i, 1);
@@ -47,7 +48,7 @@ void cStringDemo(){
 
     cout << "\n";
 
-    if(guessed == name) {
+    if(strcmp(guessed, name) == 0) {
         cout << "Nice, you got it! \nwait why do you know my name\nhave you been spying on me??" << endl;
     }else{
         cout << "womp womp (incorrect)" << endl;
@@ -60,9 +61,6 @@ void cStringDemo(){
     char WOVowels[255];
 
     removeVowels(guessed, WOVowels);
-    // for(char ch : WOVowels){
-    //     cout << ch;
-    // }
     
     cout << "Without vowels, thats " << WOVowels << endl;
 
@@ -78,9 +76,11 @@ void cStringDemo(){
 void stringTypeDemo(){
     string name = "Michael Candrian";
     string guessed;
+    string guessed1, guessed2;
 
     cout << "Guess my name (first last): ";
-    cin >> guessed;
+    cin >> guessed1 >> guessed2;
+    guessed = guessed1 + " " + guessed2;
 
     cout << "\n";
 
@@ -111,7 +111,7 @@ void stringTypeDemo(){
 
 
 int main() {
-    //cStringDemo();
+    cStringDemo();
     stringTypeDemo();
     return 0;
 }
